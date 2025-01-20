@@ -1,0 +1,11 @@
+<!-- templates/alunos/novo.html -->
+{% extends "base.html" %}
+{% block title %}Novo Aluno{% endblock %}
+{% block content %}
+    <h1>Cadastrar Novo Aluno</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
+        </div>
+        <div class="mb-3">

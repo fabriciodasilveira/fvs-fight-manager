@@ -1,9 +1,9 @@
-# requirements.txt
-flask==2.0.1
-flask-sqlalchemy==2.5.1
-flask-login==0.5.0
-python-dotenv==0.19.0
-werkzeug==2.0.1
+# # requirements.txt
+# flask==2.0.1
+# flask-sqlalchemy==2.5.1
+# flask-login==0.5.0
+# python-dotenv==0.19.0
+# werkzeug==2.0.1
 
 # app.py
 from flask import Flask, render_template, request, redirect, url_for, flash
