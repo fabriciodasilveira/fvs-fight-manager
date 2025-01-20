@@ -1,0 +1,134 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academia de Lutas - {% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">Academia de Lutas</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('listar_alunos') }}">Alunos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('listar_professores') }}">Professores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('listar_modalidades') }}">Modalidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('listar_mensalidades') }}">Mensalidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('listar_contas') }}">Contas a Pagar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<!-- templates/index.html -->
+{% extends "base.html" %}
+{% block title %}Início{% endblock %}
+{% block content %}
+    <h1>Bem-vindo ao Sistema da Academia de Lutas</h1>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Alunos</h5>
+                    <p class="card-text">Gerencie os alunos da academia</p>
+                    <a href="{{ url_for('listar_alunos') }}" class="btn btn-primary">Ver Alunos</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Professores</h5>
+                    <p class="card-text">Gerencie os professores da academia</p>
+                    <a href="{{ url_for('listar_professores') }}" class="btn btn-primary">Ver Professores</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Modalidades</h5>
+                    <p class="card-text">Gerencie as modalidades de luta</p>
+                    <a href="{{ url_for('listar_modalidades') }}" class="btn btn-primary">Ver Modalidades</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+<!-- templates/alunos/listar.html -->
+{% extends "base.html" %}
+{% block title %}Alunos{% endblock %}
+{% block content %}
+    <h1>Lista de Alunos</h1>
+    <a href="{{ url_for('novo_aluno') }}" class="btn btn-primary mb-3">Novo Aluno</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for aluno in alunos %}
+            <tr>
+                <td>{{ aluno.nome }}</td>
+                <td>{{ aluno.cpf }}</td>
+                <td>{{ aluno.telefone }}</td>
+                <td>{{ aluno.email }}</td>
+                <td>
+                    <a href="#" class="btn btn-sm btn-info">Editar</a>
+                    <a href="#" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+<!-- templates/alunos/novo.html -->
+{% extends "base.html" %}
+{% block title %}Novo Aluno{% endblock %}
+{% block content %}
+    <h1>Cadastrar Novo Aluno</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
+        </div>
+        <div class="mb-3">
