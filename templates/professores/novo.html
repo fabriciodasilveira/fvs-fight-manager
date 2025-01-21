@@ -1,0 +1,31 @@
+<!-- templates/professores/novo.html -->
+{% extends "base.html" %}
+{% block title %}{% if professor %}Editar Professor{% else %}Novo Professor{% endif %}{% endblock %}
+{% block content %}
+    <h1>{% if professor %}Editar Professor{% else %}Novo Professor{% endif %}</h1>
+    <form method="POST" action="{% if professor %}{{ url_for('atualizar_professor', id=professor.id) }}{% else %}{{ url_for('novo_professor') }}{% endif %}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" value="{% if professor %}{{ professor.nome }}{% endif %}" required>
+        </div>
+        <div class="form-group">
+            <label for="cpf">CPF</label>
+            <input type="text" class="form-control" id="cpf" name="cpf" value="{% if professor %}{{ professor.cpf }}{% endif %}" required>
+        </div>
+        <div class="form-group">
+            <label for="especialidade">Especialidade</label>
+            <input type="text" class="form-control" id="especialidade" name="especialidade" value="{% if professor %}{{ professor.especialidade }}{% endif %}" required>
+        </div>
+        <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="text" class="form-control" id="telefone" name="telefone" value="{% if professor %}{{ professor.telefone }}{% endif %}">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{% if professor %}{{ professor.email }}{% endif %}">
+        </div>
+        <button type="submit" class="btn btn-primary">{% if professor %}Salvar Alterações{% else %}Cadastrar{% endif %}</button>
+        <a href="{{ url_for('listar_professores') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

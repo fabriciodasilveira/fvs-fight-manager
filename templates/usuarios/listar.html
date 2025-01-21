@@ -1,0 +1,44 @@
+<!-- templates/usuarios/listar.html -->
+<!-- templates/usuarios/listar.html -->
+{% extends "base.html" %}
+{% block title %}Usuários{% endblock %}
+{% block content %}
+    <h1>Lista de Usuários</h1>
+    <a href="{{ url_for('novo_usuario') }}" class="btn btn-primary mb-3">Novo Usuário</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Nome Completo</th>
+                <th>Email</th>
+                <th>Tipo</th>
+                <th>Permissões</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.nome_completo }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>{{ usuario.tipo }}</td>
+                <td>
+                    {% for permissao in usuario.permissoes %}
+                        <span class="badge bg-primary">{{ permissao.nome }}</span>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ url_for('editar_usuario', id=usuario.id) }}" class="btn btn-sm btn-info">Editar</a>
+                    {% if usuario.tipo != 'admin' %}
+                        <form action="{{ url_for('excluir_usuario', id=usuario.id) }}" method="POST" style="display:inline;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este usuário?');">Excluir</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

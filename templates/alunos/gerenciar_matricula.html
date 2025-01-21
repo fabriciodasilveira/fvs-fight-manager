@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Gerenciar Matrícula{% endblock %}
+{% block content %}
+    <h1>Gerenciar Matrícula: {{ aluno.nome }}</h1>
+
+    <!-- Lista de Matrículas -->
+    <h2>Matrículas Ativas</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Plano</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for matricula in matriculas %}
+            <tr>
+                <td>{{ matricula.plano_nome }}</td>
+                <td>{{ matricula.status }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('gerenciar_matricula', aluno_id=aluno.id) }}" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="plano_id" value="{{ matricula.plano_id }}">
+                        <select name="status" class="form-control" style="width: auto; display: inline;">
+                            <option value="ativo" {% if matricula.status == 'ativo' %}selected{% endif %}>Ativo</option>
+                            <option value="trancado" {% if matricula.status == 'trancado' %}selected{% endif %}>Trancado</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm">Atualizar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Botão para voltar -->
+    <a href="{{ url_for('listar_matriculas') }}" class="btn btn-secondary">Voltar</a>
+{% endblock %}

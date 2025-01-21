@@ -1,0 +1,52 @@
+<!-- templates/usuarios/novo.html -->
+{% extends "base.html" %}
+{% block title %}{% if usuario %}Editar Usuário{% else %}Novo Usuário{% endif %}{% endblock %}
+{% block content %}
+    <h1>{% if usuario %}Editar Usuário{% else %}Cadastrar Novo Usuário{% endif %}</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">  <!-- Token CSRF -->
+
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" 
+                   value="{% if usuario %}{{ usuario.username }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="password" name="password" 
+                   {% if not usuario %}required{% endif %}>
+            {% if usuario %}
+                <small class="text-muted">Deixe em branco para manter a senha atual.</small>
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            <label for="nome_completo" class="form-label">Nome Completo</label>
+            <input type="text" class="form-control" id="nome_completo" name="nome_completo" 
+                   value="{% if usuario %}{{ usuario.nome_completo }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" 
+                   value="{% if usuario %}{{ usuario.email }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Permissões</label>
+            <div class="form-check">
+                {% for permissao in permissoes %}
+                <div>
+                    <input type="checkbox" class="form-check-input" id="perm_{{ permissao.codigo }}" 
+                           name="permissoes" value="{{ permissao.codigo }}"
+                           {% if usuario and permissao in usuario.permissoes %}checked{% endif %}>
+                    <label class="form-check-label" for="perm_{{ permissao.codigo }}">
+                        {{ permissao.nome }}
+                    </label>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">
+            {% if usuario %}Salvar Alterações{% else %}Cadastrar{% endif %}
+        </button>
+        <a href="{{ url_for('listar_usuarios') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!-- templates/mensalidades/listar.html -->
+{% extends "base.html" %}
+{% block title %}Mensalidades{% endblock %}
+{% block content %}
+    <h1>Lista de Mensalidades</h1>
+    <a href="{{ url_for('nova_mensalidade') }}" class="btn btn-primary mb-3">Nova Mensalidade</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Aluno</th>
+                <th>Valor</th>
+                <th>Mês Referência</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mensalidade in mensalidades %}
+            <tr>
+                <td>{{ mensalidade.aluno.nome }}</td>
+                <td>{{ mensalidade.valor }}</td>
+                <td>{{ mensalidade.mes_referencia.strftime('%Y-%m') }}</td>
+                <td>{{ mensalidade.status }}</td>
+                <td>
+                    <a href="{{ url_for('editar_mensalidade', id=mensalidade.id) }}" class="btn btn-sm btn-info">Editar</a>
+                    <form action="{{ url_for('excluir_mensalidade', id=mensalidade.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta mensalidade?');">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -22,12 +22,14 @@
                 <td>{{ aluno.telefone }}</td>
                 <td>{{ aluno.email }}</td>
                 <td>
-                    <a href="#" class="btn btn-sm btn-info">Editar</a>
-                    <a href="#" class="btn btn-sm btn-danger">Excluir</a>
+                    <a href="{{ url_for('editar_aluno', id=aluno.id) }}" class="btn btn-sm btn-info">Editar</a>
+                    <form action="{{ url_for('excluir_aluno', id=aluno.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este aluno?');">Excluir</button>
+                    </form>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 {% endblock %}
-

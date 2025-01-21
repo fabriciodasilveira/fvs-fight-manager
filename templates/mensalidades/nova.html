@@ -1,0 +1,34 @@
+<!-- templates/mensalidades/nova.html -->
+{% extends "base.html" %}
+{% block title %}{% if mensalidade %}Editar Mensalidade{% else %}Nova Mensalidade{% endif %}{% endblock %}
+{% block content %}
+    <h1>{% if mensalidade %}Editar Mensalidade{% else %}Nova Mensalidade{% endif %}</h1>
+    <form method="POST" action="{% if mensalidade %}{{ url_for('atualizar_mensalidade', id=mensalidade.id) }}{% else %}{{ url_for('nova_mensalidade') }}{% endif %}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group">
+            <label for="aluno_id">Aluno</label>
+            <select class="form-control" id="aluno_id" name="aluno_id" required>
+                {% for aluno in alunos %}
+                <option value="{{ aluno.id }}" {% if mensalidade and mensalidade.aluno_id == aluno.id %}selected{% endif %}>{{ aluno.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="valor">Valor</label>
+            <input type="number" step="0.01" class="form-control" id="valor" name="valor" value="{% if mensalidade %}{{ mensalidade.valor }}{% endif %}" required>
+        </div>
+        <div class="form-group">
+            <label for="mes_referencia">Mês Referência</label>
+            <input type="month" class="form-control" id="mes_referencia" name="mes_referencia" value="{% if mensalidade %}{{ mensalidade.mes_referencia.strftime('%Y-%m') }}{% endif %}" required>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select class="form-control" id="status" name="status" required>
+                <option value="pendente" {% if mensalidade and mensalidade.status == 'pendente' %}selected{% endif %}>Pendente</option>
+                <option value="pago" {% if mensalidade and mensalidade.status == 'pago' %}selected{% endif %}>Pago</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">{% if mensalidade %}Salvar Alterações{% else %}Cadastrar{% endif %}</button>
+        <a href="{{ url_for('listar_mensalidades') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

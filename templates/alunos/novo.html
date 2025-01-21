@@ -1,11 +1,31 @@
 <!-- templates/alunos/novo.html -->
 {% extends "base.html" %}
-{% block title %}Novo Aluno{% endblock %}
+{% block title %}{% if aluno %}Editar Aluno{% else %}Novo Aluno{% endif %}{% endblock %}
 {% block content %}
-    <h1>Cadastrar Novo Aluno</h1>
-    <form method="POST">
-        <div class="mb-3">
-            <label for="nome" class="form-label">Nome</label>
-            <input type="text" class="form-control" id="nome" name="nome" required>
+    <h1>{% if aluno %}Editar Aluno{% else %}Novo Aluno{% endif %}</h1>
+    <form method="POST" action="{% if aluno %}{{ url_for('atualizar_aluno', id=aluno.id) }}{% else %}{{ url_for('novo_aluno') }}{% endif %}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" value="{% if aluno %}{{ aluno.nome }}{% endif %}" required>
         </div>
-        <div class="mb-3">
+        <div class="form-group">
+            <label for="cpf">CPF</label>
+            <input type="text" class="form-control" id="cpf" name="cpf" value="{% if aluno %}{{ aluno.cpf }}{% endif %}" required>
+        </div>
+        <div class="form-group">
+            <label for="data_nascimento">Data de Nascimento</label>
+            <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" value="{% if aluno %}{{ aluno.data_nascimento.strftime('%Y-%m-%d') }}{% endif %}" required>
+        </div>
+        <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="text" class="form-control" id="telefone" name="telefone" value="{% if aluno %}{{ aluno.telefone }}{% endif %}">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{% if aluno %}{{ aluno.email }}{% endif %}">
+        </div>
+        <button type="submit" class="btn btn-primary">{% if aluno %}Salvar Alterações{% else %}Cadastrar{% endif %}</button>
+        <a href="{{ url_for('listar_alunos') }}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Matricular Aluno</h1>
+    <form method="POST" class="bg-light p-4 rounded shadow">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+        <!-- Campo Aluno -->
+        <div class="mb-3">
+            <label for="aluno_id" class="form-label">Aluno:</label>
+            <select name="aluno_id" id="aluno_id" class="form-select" required>
+                <option value="">Selecione um aluno</option>
+                {% for aluno in alunos %}
+                <option value="{{ aluno.id }}">{{ aluno.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Campo Plano -->
+        <div class="mb-3">
+            <label for="plano_id" class="form-label">Plano:</label>
+            <select name="plano_id" id="plano_id" class="form-select" required>
+                <option value="">Selecione um plano</option>
+                {% for plano in planos %}
+                <option value="{{ plano.id }}">{{ plano.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Botão de Envio -->
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary">Matricular</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+<!-- templates/contas/listar.html -->
+{% extends "base.html" %}
+{% block title %}Contas a Pagar{% endblock %}
+{% block content %}
+    <h1>Lista de Contas a Pagar</h1>
+    <a href="{{ url_for('nova_conta') }}" class="btn btn-primary mb-3">Nova Conta</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Data de Vencimento</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for conta in contas %}
+            <tr>
+                <td>{{ conta.descricao }}</td>
+                <td>{{ conta.valor }}</td>
+                <td>{{ conta.data_vencimento.strftime('%Y-%m-%d') }}</td>
+                <td>{{ conta.status }}</td>
+                <td>
+                    <a href="{{ url_for('editar_conta', id=conta.id) }}" class="btn btn-sm btn-info">Editar</a>
+                    <form action="{{ url_for('excluir_conta', id=conta.id) }}" method="POST" style="display:inline;">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta conta?');">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
