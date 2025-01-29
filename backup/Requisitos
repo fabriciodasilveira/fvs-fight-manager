@@ -1,0 +1,73 @@
+Quero que construa um sistema para gestão de academia de Lutas completo em python. Quero que o sistema seja Web e que use Progressive Web App (PWA) para uso em IOS e Android, com designer responsivo as telas.
+
+Módulos que precisam estar presente no sistema da academia:
+
+1 - Cadastro de Alunos { Nome, Data Nasc, Sexo, Nome da Mae, Celular, E-mail, Endereço } Se menor que 18 anos: Deve informar nome do responsável com contato celular.
+
+2 - Controle de Contas a pagar Completo: Usar o melhor modelo possível para controle das contas
+
+3 - Cadastro de Modalidade de Luta: { Nome }
+
+4 - Cadastro dos Professores: { Nome, Data Nasc, Sexo, Nome da Mae, Celular, E-mail, Endereço } ,{Modalidade de Luta}
+
+5 - Cadastro de Turmas: { Nome, Descrição}, {Professor }
+
+6 - Cadastro de Planos: { Nome, Descrição , Valor, Duração (Mensal, Trimestral, Semestral, Anual ) }
+
+7 - Sistema de Matricula: { Data Matricula, Nome Aluno, Plano, Turma }
+
+8 - Controle de Usuários e Permissões de acesso { nome usuario, senha , Nome Completo, celular, e-mail } - Checkbox para habilitar as funções do sistema para dar permissão. Somente ADM pode Liberar funcão de controle de usuários.
+
+9 - AGENDA DE HORARIOS DAS AULAS - Baseado nas turmas cadastradas e Personal agendado - Gerar tela dos horarios.
+
+10 -  Reserva Para Personal - Local onde o professor consegue reservar uma hora de sala que não tenha Turma ativa.
+
+11 - Recebimentos de Mensalidades : O aluno matriculado deve pagar a mensalidade através do acesso ao sistema por PIX, Cartão usando o gateway do mercado pago.
+
+12 - Relatórios - Mensalidades Pendentes, Comissão Professor, Despesas
+
+
+
+Este é o esqueleto inicial do sistema com os principais modelos de dados e configurações básicas. Vamos analisar os principais componentes:
+
+Estrutura do Projeto:
+
+
+Utiliza Flask como framework web
+SQLAlchemy como ORM para o banco de dados
+Flask-Login para autenticação
+Mercado Pago para pagamentos
+PWA para suporte mobile
+
+
+Modelos de Dados:
+
+
+User: Gerenciamento de usuários e permissões
+Student: Cadastro de alunos
+MartialArt: Modalidades de luta
+Teacher: Cadastro de professores
+Class: Turmas
+Plan: Planos e valores
+Enrollment: Matrículas
+Payment: Controle de pagamentos
+Expense: Contas a pagar
+Schedule: Agenda de horários
+PersonalBooking: Reservas de aulas particulares
+Permission: Controle de permissões
+
+
+Recursos Implementados:
+
+
+Sistema de autenticação e autorização
+Controle de permissões por módulo
+Suporte a PWA para uso mobile
+Integração com Mercado Pago
+Estrutura para relatórios
+
+Para continuar o desenvolvimento, preciso saber:
+
+Gostaria que eu desenvolva alguma parte específica em mais detalhes?
+Quer ver a implementação de alguma rota ou funcionalidade específica?
+Precisa de ajuda com a parte de templates HTML/CSS?
