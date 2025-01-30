@@ -2,14 +2,11 @@
 {% extends "base.html" %}
 {% block title %}Modalidades{% endblock %}
 {% block content %}
-    <h1>Lista de Modalidades</h1>
     <a href="{{ url_for('nova_modalidade') }}" class="btn btn-primary mb-3">Nova Modalidade</a>
     <table class="table">
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Descrição</th>
-                <th>Valor Mensal</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -17,8 +14,6 @@
             {% for modalidade in modalidades %}
             <tr>
                 <td>{{ modalidade.nome }}</td>
-                <td>{{ modalidade.descricao }}</td>
-                <td>{{ modalidade.valor_mensal }}</td>
                 <td>
                     <a href="{{ url_for('editar_modalidade', id=modalidade.id) }}" class="btn btn-sm btn-info">Editar</a>
                     <form action="{{ url_for('excluir_modalidade', id=modalidade.id) }}" method="POST" style="display:inline;">
