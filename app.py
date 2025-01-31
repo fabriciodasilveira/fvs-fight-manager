@@ -207,6 +207,7 @@ def listar_professores():
 @login_required
 @requer_permissao('professores')
 def novo_professor():
+    modalidades = Modalidade.query.all()
     if request.method == 'POST':
         professor = Professor(
             nome=request.form['nome'],
@@ -219,7 +220,7 @@ def novo_professor():
         db.session.commit()
         flash('Professor cadastrado com sucesso!', 'success')
         return redirect(url_for('listar_professores'))
-    return render_template('professores/novo.html')
+    return render_template('professores/novo.html', modalidades=modalidades)
 
 @app.route('/professores/editar/<int:id>', methods=['GET'])
 @login_required
@@ -485,7 +486,7 @@ def matricular():
             aluno.planos.append(plano)
             db.session.commit()
             flash('Aluno matriculado no plano com sucesso!', 'success')
-        return redirect(url_for('matricular'))
+        return redirect(url_for('/alunos/matriculas'))
 
     return render_template('alunos/matricular.html', alunos=alunos, planos=planos)
 

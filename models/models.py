@@ -82,6 +82,7 @@ class Aluno(db.Model):
     telefone = db.Column(db.String(20))
     email = db.Column(db.String(120))
     matriculas = db.relationship('Matricula', backref='aluno')
+    planos = db.relationship('Plano', secondary='aluno_plano', backref=db.backref('alunos', lazy=True))
 
 
 usuario_permissao = db.Table('usuario_permissao',
