@@ -486,7 +486,7 @@ def matricular():
             aluno.planos.append(plano)
             db.session.commit()
             flash('Aluno matriculado no plano com sucesso!', 'success')
-        return redirect(url_for('/alunos/matriculas'))
+        return redirect(url_for('listar_matriculas'))
 
     return render_template('alunos/matricular.html', alunos=alunos, planos=planos)
 
