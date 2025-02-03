@@ -2,15 +2,12 @@
 {% extends "base.html" %}
 {% block title %}Alunos{% endblock %}
 {% block content %}
-    <h1>Lista de Alunos</h1>
     <a href="{{ url_for('novo_aluno') }}" class="btn btn-primary mb-3">Novo Aluno</a>
     <table class="table">
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>CPF</th>
                 <th>Telefone</th>
-                <th>Email</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -18,9 +15,7 @@
             {% for aluno in alunos %}
             <tr>
                 <td>{{ aluno.nome }}</td>
-                <td>{{ aluno.cpf }}</td>
                 <td>{{ aluno.telefone }}</td>
-                <td>{{ aluno.email }}</td>
                 <td>
                     <a href="{{ url_for('editar_aluno', id=aluno.id) }}" class="btn btn-sm btn-info">Editar</a>
                     <form action="{{ url_for('excluir_aluno', id=aluno.id) }}" method="POST" style="display:inline;">

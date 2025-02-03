@@ -2,16 +2,12 @@
 {% extends "base.html" %}
 {% block title %}Professores{% endblock %}
 {% block content %}
-    <h1>Lista de Professores</h1>
     <a href="{{ url_for('novo_professor') }}" class="btn btn-primary mb-3">Novo Professor</a>
     <table class="table">
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>CPF</th>
-                <th>Especialidade</th>
                 <th>Telefone</th>
-                <th>Email</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -19,10 +15,7 @@
             {% for professor in professores %}
             <tr>
                 <td>{{ professor.nome }}</td>
-                <td>{{ professor.cpf }}</td>
-                <td>{{ professor.especialidade }}</td>
                 <td>{{ professor.telefone }}</td>
-                <td>{{ professor.email }}</td>
                 <td>
                     <a href="{{ url_for('editar_professor', id=professor.id) }}" class="btn btn-sm btn-info">Editar</a>
                     <form action="{{ url_for('excluir_professor', id=professor.id) }}" method="POST" style="display:inline;">

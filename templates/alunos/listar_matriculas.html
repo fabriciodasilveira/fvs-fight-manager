@@ -10,8 +10,6 @@
         <thead>
             <tr>
                 <th>Aluno</th>
-                <th>CPF</th>
-                <th>Email</th>
                 <th>Matrículas</th>
             </tr>
         </thead>
@@ -19,8 +17,6 @@
             {% for aluno_info in alunos %}
             <tr>
                 <td>{{ aluno_info.aluno.nome }}</td>
-                <td>{{ aluno_info.aluno.cpf }}</td>
-                <td>{{ aluno_info.aluno.email }}</td>
                 <td>
                     <ul class="list-unstyled">
                         {% for matricula in aluno_info.matriculas %}
