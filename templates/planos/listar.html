@@ -3,7 +3,7 @@
 {% block title %}Planos{% endblock %}
 {% block content %}
     <h1>Lista de Planos</h1>
-    <a href="{{ url_for('novo_plano') }}" class="btn btn-primary mb-3">Novo Plano</a>
+    <a href="{{ url_for('planos.novo_plano') }}" class="btn btn-primary mb-3">Novo Plano</a>
     <table class="table">
         <thead>
             <tr>
@@ -20,8 +20,8 @@
                 <td>{{ plano.descricao }}</td>
                 <td>R$ {{ "%.2f"|format(plano.valor_mensal) }}</td>
                 <td>
-                    <a href="{{ url_for('editar_plano', id=plano.id) }}" class="btn btn-sm btn-info">Editar</a>
-                    <form action="{{ url_for('excluir_plano', id=plano.id) }}" method="POST" style="display:inline;">
+                    <a href="{{ url_for('planos.editar_plano', id=plano.id) }}" class="btn btn-sm btn-info">Editar</a>
+                    <form action="{{ url_for('planos.excluir_plano', id=plano.id) }}" method="POST" style="display:inline;">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir este plano?');">Excluir</button>
                     </form>

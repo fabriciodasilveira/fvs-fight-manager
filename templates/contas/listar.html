@@ -3,7 +3,7 @@
 {% block title %}Contas a Pagar{% endblock %}
 {% block content %}
     <h1>Lista de Contas a Pagar</h1>
-    <a href="{{ url_for('nova_conta') }}" class="btn btn-primary mb-3">Nova Conta</a>
+    <a href="{{ url_for('contas.nova_conta') }}" class="btn btn-primary mb-3">Nova Conta</a>
     <table class="table">
         <thead>
             <tr>
@@ -20,10 +20,10 @@
                 <td>{{ conta.descricao }}</td>
                 <td>{{ conta.valor }}</td>
                 <td>{{ conta.data_vencimento.strftime('%Y-%m-%d') }}</td>
-                <td>{{ conta.status }}</td>
+                <td style="{% if conta.status == 'pendente' %}background-color: rgba(255, 0, 0, 0.1);{% else %}background-color: rgba(143,188,143, 0.5);{% endif %}"> {{ conta.status }}</td>
                 <td>
-                    <a href="{{ url_for('editar_conta', id=conta.id) }}" class="btn btn-sm btn-info">Editar</a>
-                    <form action="{{ url_for('excluir_conta', id=conta.id) }}" method="POST" style="display:inline;">
+                    <a href="{{ url_for('contas.editar_conta', id=conta.id) }}" class="btn btn-sm btn-info">Editar</a>
+                    <form action="{{ url_for('contas.excluir_conta', id=conta.id) }}" method="POST" style="display:inline;">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta conta?');">Excluir</button>
                     </form>

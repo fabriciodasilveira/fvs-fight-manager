@@ -1,0 +1,36 @@
+<!-- templates/professores/listar.html -->
+{% extends "base.html" %}
+{% block title %}Professores{% endblock %}
+{% block content %}
+
+	<table class="table">
+		<thead>
+				<tr>
+						<th>Aluno</th>
+						<th>Valor</th>
+						<th>Vencimento</th>
+						<th>Status</th>
+						<th>Ações</th>
+				</tr>
+		</thead>
+		<tbody>
+				{% for mensalidade in mensalidades %}
+						<tr>
+								<td>{{ mensalidade.aluno.nome }}</td>
+								<td>{{ mensalidade.valor }}</td>
+								<td>{{ mensalidade.data_vencimento }}</td>
+								<td>{{ mensalidade.status }}</td>
+								<td>
+										<form action="{{ url_for('confirmar_recebimento', mensalidade_id=mensalidade.id) }}" method="post">
+												<button type="submit" name="acao" value="confirmar">Confirmar Recebimento</button>
+										</form>
+										<form action="{{ url_for('abonar_pagamento', mensalidade_id=mensalidade.id) }}" method="post">
+												<button type="submit" name="acao" value="abonar">Abonar Pagamento</button>
+										</form>
+								</td>
+						</tr>
+				{% endfor %}
+		</tbody>
+</table>
+
+{% endblock %}

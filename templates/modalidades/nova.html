@@ -3,7 +3,7 @@
 {% block title %}{% if modalidade %}Editar Modalidade{% else %}Nova Modalidade{% endif %}{% endblock %}
 {% block content %}
     <h1>{% if modalidade %}Editar Modalidade{% else %}Modalidade{% endif %}</h1>
-    <form method="POST" action="{% if modalidade %}{{ url_for('atualizar_modalidade', id=modalidade.id) }}{% else %}{{ url_for('nova_modalidade') }}{% endif %}">
+    <form method="POST" action="{% if modalidade %}{{ url_for('modalidades.atualizar_modalidade', id=modalidade.id) }}{% else %}{{ url_for('modalidades.nova_modalidade') }}{% endif %}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="form-group">
             <label for="nome">Nome</label>
@@ -11,6 +11,6 @@
         </div>
         <br/>
         <button type="submit" class="btn btn-primary">{% if modalidade %}Salvar Alterações{% else %}Cadastrar{% endif %}</button>
-        <a href="{{ url_for('listar_modalidades') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ url_for('modalidades.listar_modalidades') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 {% endblock %}

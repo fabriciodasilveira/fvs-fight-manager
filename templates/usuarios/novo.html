@@ -16,7 +16,7 @@
             <input type="password" class="form-control" id="password" name="password" 
                    {% if not usuario %}required{% endif %}>
             {% if usuario %}
-                <small class="text-muted">Deixe em branco para manter a senha atual.</small>
+                <small class="text-muted" style="background: #F0FFF0;">Deixe em branco para manter a senha atual.</small>
             {% endif %}
         </div>
         <div class="mb-3">
@@ -28,6 +28,21 @@
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" 
                    value="{% if usuario %}{{ usuario.email }}{% endif %}" required>
+        </div>
+        <div class="mb-3">
+            <fieldset>
+                <legend>Selecione o tipo de usuário:</legend>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="tipo" name="tipo" value="admin"
+                           {% if usuario and usuario.tipo == 'admin' %}checked{% endif %} required>
+                    <label class="form-check-label" for="admin">Admin</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" id="tipo" name="tipo" value="usuario"
+                           {% if usuario and usuario.tipo == 'usuario' %}checked{% endif %} required>
+                    <label class="form-check-label" for="usuario">Usuário</label>
+                </div>
+            </fieldset>
         </div>
         <div class="mb-3">
             <label class="form-label">Permissões</label>
@@ -47,6 +62,6 @@
         <button type="submit" class="btn btn-primary">
             {% if usuario %}Salvar Alterações{% else %}Cadastrar{% endif %}
         </button>
-        <a href="{{ url_for('listar_usuarios') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ url_for('usuarios.listar_usuarios') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 {% endblock %}

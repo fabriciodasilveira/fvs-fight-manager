@@ -44,20 +44,20 @@ class ContaPagar(db.Model):
     status = db.Column(db.String(20), default='pendente')  # 'pendente', 'pago'
 
 
-class Mensalidade(db.Model):
+class Pagamento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    aluno_id = db.Column(db.Integer, db.ForeignKey('aluno.id'), nullable=False)
+    matricula_id = db.Column(db.Integer, db.ForeignKey('matricula.id'), nullable=False)
     valor = db.Column(db.Float, nullable=False)
     mes_referencia = db.Column(db.Date, nullable=False)
     status = db.Column(db.String(20), default='pendente')  # 'pendente', 'pago'
     data_pagamento = db.Column(db.Date)
-    aluno = db.relationship('Aluno', backref=db.backref('mensalidades', lazy=True))
 
+# Modelo de Modalidade
 class Modalidade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(50), nullable=False)
+    planos = db.relationship('Plano', backref='modalidade', lazy=True)
     
-
 #  Modelo de Plano
 class Plano(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -65,14 +65,9 @@ class Plano(db.Model):
     descricao = db.Column(db.Text)
     valor_mensal = db.Column(db.Float, nullable=False)
     ativo = db.Column(db.Boolean, default=True)  # Indica se o plano está ativo
+    modalidade_id = db.Column(db.Integer, db.ForeignKey('modalidade.id'), nullable=False)
 
-# Tabela de associação entre Aluno e Plano
-aluno_plano = db.Table('aluno_plano',
-    db.Column('aluno_id', db.Integer, db.ForeignKey('aluno.id'), primary_key=True),
-    db.Column('plano_id', db.Integer, db.ForeignKey('plano.id'), primary_key=True),
-    db.Column('data_matricula', db.DateTime, default=datetime.utcnow),
-    db.Column('status', db.String(20), default='ativo')  # Status da matrícula (ativo/trancado)
-)
+
 
 class Aluno(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -80,9 +75,19 @@ class Aluno(db.Model):
     cpf = db.Column(db.String(11), unique=True, nullable=False)
     data_nascimento = db.Column(db.Date, nullable=False)
     telefone = db.Column(db.String(20))
+    ativo = db.Column(db.Boolean, default=True)
     email = db.Column(db.String(120))
-    matriculas = db.relationship('Matricula', backref='aluno')
-    planos = db.relationship('Plano', secondary='aluno_plano', backref=db.backref('alunos', lazy=True))
+    matriculas = db.relationship('Matricula', backref='aluno', lazy=True)
+    
+    
+    
+# Correção da definição de 'aluno_plano'
+# aluno_plano = db.Table('aluno_plano',
+#     db.Column('aluno_id', db.Integer, db.ForeignKey('aluno.id'), primary_key=True),
+#     db.Column('plano_id', db.Integer, db.ForeignKey('plano.id'), primary_key=True),
+#     db.Column('data_matricula', db.DateTime, default=datetime.utcnow),
+#     db.Column('status', db.String(20), default='ativo')  # Status da matrícula (ativo/trancado)
+# )
 
 
 usuario_permissao = db.Table('usuario_permissao',
@@ -109,5 +114,6 @@ class Matricula(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     aluno_id = db.Column(db.Integer, db.ForeignKey('aluno.id'), nullable=False)
     plano_id = db.Column(db.Integer, db.ForeignKey('plano.id'), nullable=False)
-    status = db.Column(db.String(20), default='ativo')  # 'ativo', 'trancado'
+    status = db.Column(db.String(20), default='ativo')  # 'ativo', 'trancado', 'cancelado'
     data_matricula = db.Column(db.DateTime, default=datetime.utcnow)
+    data_vencimento = db.Column(db.Date)  # Define a data da próxima cobrança

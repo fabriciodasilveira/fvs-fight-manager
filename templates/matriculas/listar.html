@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href="{{ url_for('matricular') }}" class="btn btn-primary mb-3">Nova Matricula</a>
+<a href="{{ url_for('matriculas.nova_matricula') }}" class="btn btn-primary mb-3">Nova Matricula</a>
 
 <div class="container mt-5">
     <h1 class="mb-4">Alunos Matriculados</h1>
@@ -14,17 +14,15 @@
             </tr>
         </thead>
         <tbody>
-            {% for aluno_info in alunos %}
             <tr>
-                <td>{{ aluno_info.aluno.nome }}</td>
                 <td>
                     <ul class="list-unstyled">
-                        {% for matricula in aluno_info.matriculas %}
+                        {% for matricula in matriculas %}
                         <li>
-                            <strong>Plano:</strong> {{ matricula.plano_nome }}<br>
+                            <strong>Plano:</strong> {{ matricula.plano_id }}<br>
                             <strong>Status:</strong> {{ matricula.status }}<br>
                             <strong>Data de Matrícula:</strong> {{ matricula.data_matricula }}<br>
-                            <form method="POST" action="{{ url_for('alterar_status_matricula', aluno_id=aluno_info.aluno.id, plano_id=matricula.plano_id) }}" style="display:inline;">
+                            <form method="POST" action="{{ url_for('matriculas.alterar_status_matricula', matricula.id) }}" style="display:inline;">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <button type="submit" class="btn btn-sm {% if matricula.status == 'ativo' %}btn-warning{% else %}btn-success{% endif %}">
                                     {% if matricula.status == 'ativo' %}Trancar Matrícula{% else %}Retomar Plano{% endif %}
@@ -36,7 +34,7 @@
                     </ul>
                 </td>
             </tr>
-            {% endfor %}
+            
         </tbody>
     </table>
 </div>

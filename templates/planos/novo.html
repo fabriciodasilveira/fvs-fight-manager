@@ -10,6 +10,15 @@
             <input type="text" class="form-control" id="nome" name="nome" value="{% if plano %}{{ plano.nome }}{% endif %}" required>
         </div>
         <div class="mb-3">
+            <label for="modalidade_id" class="form-label">Modalidades: </label>
+            <select name="modalidade_id" id="modalidade_id" class="form-select" required>
+                <option value="">Selecione um plano</option>
+                {% for modalidade in modalidades %}
+                <option value="{{ modalidade.id }}">{{ modalidade.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
             <label for="descricao" class="form-label">Descrição</label>
             <textarea class="form-control" id="descricao" name="descricao">{% if plano %}{{ plano.descricao }}{% endif %}</textarea>
         </div>
@@ -18,6 +27,6 @@
             <input type="number" step="0.01" class="form-control" id="valor_mensal" name="valor_mensal" value="{% if plano %}{{ plano.valor_mensal }}{% endif %}" required>
         </div>
         <button type="submit" class="btn btn-primary">{% if plano %}Salvar Alterações{% else %}Cadastrar{% endif %}</button>
-        <a href="{{ url_for('listar_planos') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ url_for('planos.listar_planos') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 {% endblock %}

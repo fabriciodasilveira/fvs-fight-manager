@@ -3,7 +3,7 @@
 {% block title %}{% if conta %}Editar Conta{% else %}Nova Conta{% endif %}{% endblock %}
 {% block content %}
     <h1>{% if conta %}Editar Conta{% else %}Nova Conta{% endif %}</h1>
-    <form method="POST" action="{% if conta %}{{ url_for('atualizar_conta', id=conta.id) }}{% else %}{{ url_for('nova_conta') }}{% endif %}">
+    <form method="POST" action="{% if conta %}{{ url_for('contas.atualizar_conta', id=conta.id) }}{% else %}{{ url_for('contas.nova_conta') }}{% endif %}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="form-group">
             <label for="descricao">Descrição</label>
@@ -25,6 +25,6 @@
             </select>
         </div>
         <button type="submit" class="btn btn-primary">{% if conta %}Salvar Alterações{% else %}Cadastrar{% endif %}</button>
-        <a href="{{ url_for('listar_contas') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ url_for('contas.listar_contas') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 {% endblock %}

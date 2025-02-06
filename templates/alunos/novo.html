@@ -3,7 +3,7 @@
 {% block title %}{% if aluno %}Editar Aluno{% else %}Novo Aluno{% endif %}{% endblock %}
 {% block content %}
     <h1>{% if aluno %}Editar Aluno{% else %}Novo Aluno{% endif %}</h1>
-    <form method="POST" action="{% if aluno %}{{ url_for('atualizar_aluno', id=aluno.id) }}{% else %}{{ url_for('novo_aluno') }}{% endif %}">
+    <form method="POST" action="{% if aluno %}{{ url_for('alunos.atualizar_aluno', id=aluno.id) }}{% else %}{{ url_for('alunos.novo_aluno') }}{% endif %}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="form-group">
             <label for="nome">Nome</label>
@@ -26,6 +26,6 @@
             <input type="email" class="form-control" id="email" name="email" value="{% if aluno %}{{ aluno.email }}{% endif %}">
         </div>
         <button type="submit" class="btn btn-primary">{% if aluno %}Salvar Alterações{% else %}Cadastrar{% endif %}</button>
-        <a href="{{ url_for('listar_alunos') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ url_for('alunos.listar_alunos') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 {% endblock %}

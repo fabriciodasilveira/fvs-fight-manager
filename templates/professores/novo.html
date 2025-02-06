@@ -3,7 +3,7 @@
 {% block title %}{% if professor %}Editar Professor{% else %}Novo Professor{% endif %}{% endblock %}
 {% block content %}
     <h1>{% if professor %}Editar Professor{% else %}Novo Professor{% endif %}</h1>
-    <form method="POST" action="{% if professor %}{{ url_for('atualizar_professor', id=professor.id) }}{% else %}{{ url_for('novo_professor') }}{% endif %}">
+    <form method="POST" action="{% if professor %}{{ url_for('professores.atualizar_professor', id=professor.id) }}{% else %}{{ url_for('professores.novo_professor') }}{% endif %}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="form-group">
             <label for="nome">Nome</label>
@@ -31,6 +31,6 @@
             <input type="email" class="form-control" id="email" name="email" value="{% if professor %}{{ professor.email }}{% endif %}">
         </div>
         <button type="submit" class="btn btn-primary">{% if professor %}Salvar Alterações{% else %}Cadastrar{% endif %}</button>
-        <a href="{{ url_for('listar_professores') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ url_for('professores.listar_professores') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 {% endblock %}

@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 {% block title %}Modalidades{% endblock %}
 {% block content %}
-    <a href="{{ url_for('nova_modalidade') }}" class="btn btn-primary mb-3">Nova Modalidade</a>
+    <a href="{{ url_for('modalidades.nova_modalidade') }}" class="btn btn-primary mb-3">Nova Modalidade</a>
     <table class="table">
         <thead>
             <tr>
@@ -15,8 +15,8 @@
             <tr>
                 <td>{{ modalidade.nome }}</td>
                 <td>
-                    <a href="{{ url_for('editar_modalidade', id=modalidade.id) }}" class="btn btn-sm btn-info">Editar</a>
-                    <form action="{{ url_for('excluir_modalidade', id=modalidade.id) }}" method="POST" style="display:inline;">
+                    <a href="{{ url_for('modalidades.editar_modalidade', id=modalidade.id) }}" class="btn btn-sm btn-info">Editar</a>
+                    <form action="{{ url_for('modalidades.excluir_modalidade', id=modalidade.id) }}" method="POST" style="display:inline;">
                         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta modalidade?');">Excluir</button>
                     </form>

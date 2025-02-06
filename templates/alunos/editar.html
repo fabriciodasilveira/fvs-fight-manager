@@ -3,7 +3,7 @@
 {% block title %}Editar Aluno{% endblock %}
 {% block content %}
     <h1>Editar Aluno</h1>
-    <form method="POST" action="{{ url_for('atualizar_aluno', id=aluno.id) }}">
+    <form method="POST" action="{{ url_for('alunos.atualizar_aluno', id=aluno.id) }}">
         <div class="form-group">
             <label for="nome">Nome</label>
             <input type="text" class="form-control" id="nome" name="nome" value="{{ aluno.nome }}" required>
@@ -25,6 +25,6 @@
             <input type="email" class="form-control" id="email" name="email" value="{{ aluno.email }}">
         </div>
         <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-        <a href="{{ url_for('listar_alunos') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ url_for('alunos.listar_alunos') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 {% endblock %}

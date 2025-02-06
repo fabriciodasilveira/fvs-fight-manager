@@ -36,34 +36,31 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('listar_alunos') }}">Alunos</a>
+                        <a class="nav-link" href="{{ url_for('alunos.listar_alunos') }}">Alunos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('listar_professores') }}">Professores</a>
+                        <a class="nav-link" href="{{ url_for('professores.listar_professores') }}">Professores</a>
                     </li>
                     <li class="nav-item">
-                       <!--  <a class="nav-link" href="{{ url_for('listar_modalidades') }}">Modalidades</a> -->
+                       
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('listar_mensalidades') }}">Mensalidades</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('listar_contas') }}">Contas a Pagar</a>
+                        <a class="nav-link" href="{{ url_for('contas.listar_contas') }}">Contas a Pagar</a>
                     </li>
                     <!-- Novo menu para Planos -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('listar_planos') }}">Planos</a>
+                        <a class="nav-link" href="{{ url_for('planos.listar_planos') }}">Planos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('listar_modalidades') }}">Modalidades</a>
+                        <a class="nav-link" href="{{ url_for('modalidades.listar_modalidades') }}">Modalidades</a>
                     </li>
                     <!-- Novo menu para Matrícula de Alunos -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('listar_matriculas') }}">Matriculas</a>
+                        <a class="nav-link" href="{{ url_for('matriculas.listar_matriculas') }}">Matriculas</a>
                     </li>
                     {% if current_user.tipo == 'admin' %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('listar_usuarios') }}">Usuários</a>
+                            <a class="nav-link" href="{{ url_for('usuarios.listar_usuarios') }}">Usuários</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -71,7 +68,7 @@
                 <ul class="navbar-nav ms-auto">
                     {% if current_user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                            <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
                         </li>
                     {% endif %}
                 </ul>
