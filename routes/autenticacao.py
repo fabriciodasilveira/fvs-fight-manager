@@ -15,7 +15,7 @@ def login():
         if user and check_password_hash(user.password, password):
             login_user(user)
             flash('Login realizado com sucesso!')
-            return redirect(url_for('index'))
+            return redirect(url_for('index'))  # Redireciona para a rota 'index'
         else:
             flash('Usuário ou senha inválidos.')
 

@@ -9,10 +9,7 @@
         <thead>
             <tr>
                 <th>Username</th>
-                <th>Nome Completo</th>
-                <th>Email</th>
                 <th>Tipo</th>
-                <th>Permissões</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -20,14 +17,7 @@
             {% for usuario in usuarios %}
             <tr>
                 <td>{{ usuario.username }}</td>
-                <td>{{ usuario.nome_completo }}</td>
-                <td>{{ usuario.email }}</td>
                 <td>{{ usuario.tipo }}</td>
-                <td>
-                    {% for permissao in usuario.permissoes %}
-                        <span class="badge bg-primary">{{ permissao.nome }}</span>
-                    {% endfor %}
-                </td>
                 <td>
                     <a href="{{ url_for('usuarios.editar_usuario', id=usuario.id) }}" class="btn btn-sm btn-info">Editar</a>
                     {% if usuario.tipo != 'admin' %}

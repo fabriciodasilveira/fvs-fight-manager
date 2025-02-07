@@ -9,7 +9,6 @@
             <tr>
                 <th>Descrição</th>
                 <th>Valor</th>
-                <th>Data de Vencimento</th>
                 <th>Status</th>
                 <th>Ações</th>
             </tr>
@@ -17,9 +16,8 @@
         <tbody>
             {% for conta in contas %}
             <tr>
-                <td>{{ conta.descricao }}</td>
+                <td width="100%">{{ conta.descricao }}</td>
                 <td>{{ conta.valor }}</td>
-                <td>{{ conta.data_vencimento.strftime('%Y-%m-%d') }}</td>
                 <td style="{% if conta.status == 'pendente' %}background-color: rgba(255, 0, 0, 0.1);{% else %}background-color: rgba(143,188,143, 0.5);{% endif %}"> {{ conta.status }}</td>
                 <td>
                     <a href="{{ url_for('contas.editar_conta', id=conta.id) }}" class="btn btn-sm btn-info">Editar</a>

@@ -9,8 +9,20 @@ matriculas_bp = Blueprint('matriculas', __name__, url_prefix='/matriculas')
 @login_required
 def listar_matriculas():
     matriculas = Matricula.query.all()
+    
+    # matriculas_formatadas = []
+    
+    # for matricula in Matricula.query.all():
+    #     matriculas_formatadas.append({
+    #         'id': matricula.id,
+    #         'plano_id': matricula.plano.id,
+    #         'plano_nome': matricula.plano.nome,
+    #         'status': matricula.status,
+    #         'data_matricula': matricula.data_matricula.strftime('%d/%m/%y') if matricula.data_matricula else ''
+    #     })
 
     return render_template('matriculas/listar.html', matriculas=matriculas)
+
 
 @matriculas_bp.route('/novo', methods=['GET', 'POST'])
 @login_required
