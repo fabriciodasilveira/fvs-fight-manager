@@ -20,7 +20,10 @@ def novo_aluno():
             cpf=request.form['cpf'],
             data_nascimento=datetime.strptime(request.form['data_nascimento'], '%Y-%m-%d'),
             telefone=request.form['telefone'],
-            email=request.form['email']
+            email=request.form['email'],
+            endereco=request.form['endereco'],
+            responsavel= request.form['responsavel'],
+            contato_emergencia= request.form['contato_emergencia']
         )
         db.session.add(aluno)
         db.session.commit()
@@ -45,6 +48,9 @@ def atualizar_aluno(id):
     aluno.data_nascimento = datetime.strptime(request.form['data_nascimento'], '%Y-%m-%d')
     aluno.telefone = request.form['telefone']
     aluno.email = request.form['email']
+    aluno.responsavel = request.form['responsavel']
+    aluno.endereco = request.form['endereco']
+    aluno.contato_emergencia = request.form['contato_emergencia']
     db.session.commit()
     flash('Aluno atualizado com sucesso!', 'success')
     return redirect(url_for('alunos.listar_alunos'))

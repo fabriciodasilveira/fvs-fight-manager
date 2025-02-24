@@ -77,6 +77,9 @@ class Aluno(db.Model):
     telefone = db.Column(db.String(20))
     ativo = db.Column(db.Boolean, default=True)
     email = db.Column(db.String(120))
+    endereco = db.Column(db.String(250))
+    responsavel = db.Column(db.String(120))
+    contato_emergencia = db.Column(db.String(20), nullable=False)
     matriculas = db.relationship('Matricula', backref='aluno', lazy=True)
     
     
